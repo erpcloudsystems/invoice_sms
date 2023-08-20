@@ -2,8 +2,8 @@ from . import __version__ as app_version
 
 app_name = "invoice_sms"
 app_title = "Invoice Sms"
-app_publisher = "ecs"
-app_description = "customizations"
+app_publisher = "info@erpcloud.systems"
+app_description = "ecs"
 app_email = "info@erpcloud.systems"
 app_license = "MIT"
 

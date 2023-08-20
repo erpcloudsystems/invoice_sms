@@ -9,8 +9,8 @@ from invoice_sms import __version__ as version
 setup(
 	name="invoice_sms",
 	version=version,
-	description="customizations",
-	author="ecs",
+	description="ecs",
+	author="info@erpcloud.systems",
 	author_email="info@erpcloud.systems",
 	packages=find_packages(),
 	zip_safe=False,
