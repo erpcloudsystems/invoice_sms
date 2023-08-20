@@ -4,6 +4,8 @@ def get_data():
 	return [
 		{
 			"module_name": "Invoice Sms",
+			"color": "grey",
+			"icon": "octicon octicon-file-directory",
 			"type": "module",
 			"label": _("Invoice Sms")
 		}

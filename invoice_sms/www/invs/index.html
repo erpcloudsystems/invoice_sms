@@ -1,0 +1,76 @@
+<style>
+    .main-report-container{
+        position: relative;
+        font-size: 12px;
+    }
+
+    .main-report-container .backdrop{
+        display: none;
+        position:absolute;
+        height: 100%;
+        width: 100%;
+        top: 0;
+        background-color: white;
+        opacity: 0.5;
+    }
+
+    .main-report-container button {
+        float: right;
+    }
+
+    nav.navbar{
+        display: none;
+    }
+
+    .web-footer{
+        display: none;
+    }
+</style>
+
+<div class="main-report-container">
+    <div class="backdrop"></div>
+    <button class="btn btn-primary" onclick="downloadpdf();">Download</button>
+    <div id="report_container">
+        {{body}}
+    </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"
+    integrity="sha512-GsLlZN/3F2ErC5ifS5QtgpiJtWd43JWSuIgh7mbzZ8zBps+dvLusV+eNQATqgA/HdeKFVgA5v3S/cIrLF7QnIg=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script type="text/javascript" src="https://code.jquery.com/jquery-1.7.1.min.js"></script>
+<script>
+      $(document).ready(function() {
+            
+            frappe.call({   
+                method: "invoice_sms.www.invs.index.get_sms_body",
+                args:{'url':window.location.href}
+                , callback: function (r) {
+                    if (r.message) {
+
+                        var data = r.message
+                        console.log(data,'data')
+                        $('#report_container').html(data)
+
+                    }
+                }
+            });
+});
+    function downloadpdf() {
+        var backdrop = $('.main-report-container .backdrop')
+        backdrop.css("display", "block")
+
+        var elem = document.getElementById('report_container');
+        var opt = {
+            margin: 1,
+            filename: 'Invoice.pdf',
+            image: { type: 'jpeg', quality: 0.98 },
+            html2canvas: { scale: 2 },
+            jsPDF: { orientation: 'portrait' }
+        };
+
+        html2pdf().set(opt).from(elem).save().then(()=>{
+            backdrop.css("display", "none")
+        });
+    }
+</script>
